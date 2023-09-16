@@ -17,13 +17,13 @@ export async function POST(req:Request) {
     try {
     const isUserPresent = await jwtModel.findOne({ email,password })
     if (!isUserPresent) {       // Check user if not present in database
-      return NextResponse.json({ message: "Invalind Credentials" }, { status: 409 })
+      return NextResponse.json({ message: "Invalind Credentials",success:false }, { status: 409 })
     }
 
-    const secretKey = crypto.randomUUID();  //Create a Secret Key
-    const secret = isUserPresent.password;  // Generate Token Base on user name and email
+    const secretKey = crypto.randomUUID();  //Create a Secret Key for JWT
+    const secret = isUserPresent.password;  // Get Password
     const token = jwt.sign({ secret, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
-    const response = NextResponse.json({ message: "User Successfully Login" }, { status: 200 });
+    const response = NextResponse.json({ message: "User Successfully Login",success:true }, { status: 200 });
     response.cookies.set("token", token,{
       httpOnly:true
     })   //Save Token in Cookies

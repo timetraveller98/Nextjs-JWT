@@ -13,20 +13,30 @@ const Login = () => {
         email: "",
         password: "",
     }
-    const { values, errors, handleChange, handleSubmit, handleBlur, touched }:any = useFormik({
+    const { values, errors, handleChange, handleSubmit, handleBlur, touched }: any = useFormik({
         initialValues,
         validationSchema: loginSchema,
-        onSubmit: async(values:any) => {
+        onSubmit: async (values: any) => {
             let response = await fetch("http://localhost:3000/api/login", {
                 method: "POST",
                 body: JSON.stringify(values),
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                }
             })
-            response = await response.json();
-            console.log(response)
-            router.push('/welcome')
+            const data = await response.json();
+            if (!data.success) {
+                alert("Invalid Credentials")
+            } else {
+
+                router.push('/welcome')
+            }
         }
-            
-        
+
+
     })
 
     // END

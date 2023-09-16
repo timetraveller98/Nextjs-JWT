@@ -15,14 +15,14 @@ export async function POST(req:Request) {
     const payload = await req.json();
     const {name, email, password } = payload;
     if (!name|| !email || !password) {          //For check email name and password is preesent in input box
-      return NextResponse.json({ message: "Invalid Fields" }, { status: 400 })
+      return NextResponse.json({ message: "Invalid Fields",success:false }, { status: 400 })
     }
    
     Connect();   //Add Database Connenction
    
     const isUserPresent = await jwtModel.findOne({ email })
     if (isUserPresent) {       // Check user if not present in database
-      return NextResponse.json({ message: "User Already Present" }, { status: 409 })
+      return NextResponse.json({ message: "User Already Present",success:false }, { status: 409 })
     }
     const secretPassword = await bcrypt.hash(password,salt); //Create a Secret Key
     try {

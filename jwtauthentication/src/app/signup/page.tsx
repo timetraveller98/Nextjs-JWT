@@ -13,21 +13,30 @@ const Signup = () => {
         email: "",
         password: "",
     }
-    const { values, errors, handleChange, handleSubmit, handleBlur, touched }:any = useFormik({
+    const { values, errors, handleChange, handleSubmit, handleBlur, touched }: any = useFormik({
         initialValues,
         validationSchema: signupSchema,
-        onSubmit: async(values:any) => {
+        onSubmit: async (values: any) => {
             let response = await fetch("http://localhost:3000/api/signup", {
                 method: "POST",
                 body: JSON.stringify(values),
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                }
             })
-            response = await response.json();
-            alert('Resistered')
-            router.push('/')
+            const data = await response.json();
+            if (!data.success===true) {
+                alert("User Already Resistered")
+            }else{
+                alert("User Resistered Please Login")
+                router.push('/')
+            }
         }
-            
-        
-    })
+
+            })
 
     // END
 
