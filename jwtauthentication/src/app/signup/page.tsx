@@ -34,6 +34,7 @@ const Signup = () => {
                 localStorage.setItem('token',JSON.stringify(data.token)) 
             }else{
                 alert("User Already Resistered")  
+                
             }
         }
 
