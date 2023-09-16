@@ -28,11 +28,12 @@ const Login = () => {
                 }
             })
             const data = await response.json();
-            if (!data.success) {
-                alert("Invalid Credentials")
+            if (data.success && data.token) {
+                router.push('/welcome') 
+                localStorage.setItem('token',JSON.stringify(data.token)) 
             } else {
-
-                router.push('/welcome')
+                alert("Invalid Credentials")
+                
             }
         }
 

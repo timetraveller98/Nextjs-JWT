@@ -29,11 +29,11 @@ export async function POST(req:Request) {
     let result = new jwtModel({name,email,password:secretPassword});
     result  = await result.save();
     const secretKey = crypto.randomUUID();
-    const token = jwt.sign({ name, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
-    const response = NextResponse.json({ message: "User Successfully Added",success:true }, { status: 200 });
-    response.cookies.set("token", token,{
-      httpOnly:true
-    })   //Save Token in Cookies
+    const jwtToken = jwt.sign({ name, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
+    const response = NextResponse.json({ message: "User Successfully Added",token:jwtToken,success:true }, { status: 200 });
+    // response.cookies.set("token", token,{
+    //   httpOnly:true
+    // })   //Save Token in Cookies
     return response
   } catch (err:any) {
     return NextResponse.json({ message: err, success:false }, { status: 500 })

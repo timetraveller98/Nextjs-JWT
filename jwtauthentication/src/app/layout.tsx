@@ -24,7 +24,7 @@ export default function RootLayout({
         <nav>
           <ul className='navbar'>
             <li>
-              <Link href={'/'}>HOME</Link>
+              <Link href={'/'}>LOGIN</Link>
               </li>
             <li>
               <Link href={'/signup'}>SIGN UP</Link>

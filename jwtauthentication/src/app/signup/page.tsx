@@ -28,11 +28,12 @@ const Signup = () => {
                 }
             })
             const data = await response.json();
-            if (!data.success===true) {
-                alert("User Already Resistered")
-            }else{
+            if (data.success && data.token) {
                 alert("User Resistered Please Login")
                 router.push('/')
+                localStorage.setItem('token',JSON.stringify(data.token)) 
+            }else{
+                alert("User Already Resistered")  
             }
         }
 

@@ -22,11 +22,11 @@ export async function POST(req:Request) {
 
     const secretKey = crypto.randomUUID();  //Create a Secret Key for JWT
     const secret = isUserPresent.password;  // Get Password
-    const token = jwt.sign({ secret, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
-    const response = NextResponse.json({ message: "User Successfully Login",success:true }, { status: 200 });
-    response.cookies.set("token", token,{
-      httpOnly:true
-    })   //Save Token in Cookies
+    const jwtToken = jwt.sign({ secret, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
+    const response = NextResponse.json({ message: "User Successfully Login",token:jwtToken,success:true }, { status: 200 });
+    // response.cookies.set("token", token,{
+    //   httpOnly:true
+    // })   //Save Token in Cookies
     return response
   } catch (err) {
     return NextResponse.json({ message: err, success:false }, { status: 500 })
