@@ -1,29 +1,29 @@
 'use client'
-import { loginSchema } from '@/schemas/login'
+import { signupSchema } from '@/schemas'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/navigation'
 
-const Login = () => {
+const Signup = () => {
 
     const router = useRouter();
 
-    //Login  Form Handling By Formik
-
+    //  Form Handling By Formik
     const initialValues = {
+        name: "",
         email: "",
         password: "",
     }
     const { values, errors, handleChange, handleSubmit, handleBlur, touched }:any = useFormik({
         initialValues,
-        validationSchema: loginSchema,
+        validationSchema: signupSchema,
         onSubmit: async(values:any) => {
-            let response = await fetch("http://localhost:3000/api/login", {
+            let response = await fetch("http://localhost:3000/api/signup", {
                 method: "POST",
                 body: JSON.stringify(values),
             })
             response = await response.json();
-            console.log(response)
-            router.push('/welcome')
+            alert('Resistered')
+            router.push('/')
         }
             
         
@@ -32,9 +32,11 @@ const Login = () => {
     // END
 
     return (<>
-        <h1 style={{ textAlign: 'center', marginTop: '15px' }}>LOGIN</h1>
+        <h1 style={{ textAlign: 'center', marginTop: '15px' }}>SIGN UP</h1>
         <div id='formatData'>
             <form onSubmit={handleSubmit}>
+                <input type="text" name='name' onBlur={handleBlur} value={values.name} autoComplete='off' onChange={handleChange} placeholder="Name" /><br />
+                {errors.name && touched.name ? <p>{errors.name}</p> : null}
                 <input type="email" name='email' onBlur={handleBlur} value={values.email} autoComplete='off' onChange={handleChange} placeholder="Email" /><br />
                 {errors.email && touched.email ? <p>{errors.email}</p> : null}
                 <input type="password" name='password' onBlur={handleBlur} value={values.password} autoComplete='off' onChange={handleChange} placeholder="Password" /><br />
@@ -45,4 +47,4 @@ const Login = () => {
     )
 
 }
-export default Login;
+export default Signup;
