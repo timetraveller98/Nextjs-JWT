@@ -2,9 +2,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { usePathname } from 'next/navigation'
+import Logout from '../../components/Logout'
+import { useRouter } from 'next/navigation'
 
 import Link from 'next/link'
 import './style/style.css'
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,6 +24,12 @@ export default function RootLayout({
 }) {
 const pathname = usePathname()
 
+const router = useRouter();
+const Clear = ()=>{
+  Logout();
+router.push('/signup');
+
+}
   
 
   return (
@@ -37,9 +46,9 @@ const pathname = usePathname()
       </li>
     </ul>:<ul className='navbar'>
       <li style={{color:'white'}}>
-       HOME
+       AJAY
       </li>
-      <button id='btn'>LOGOUT</button>
+      <button onClick={Clear} id='btn'>LOGOUT</button>
     </ul>
      
 }
