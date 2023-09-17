@@ -1,8 +1,11 @@
-
+'use client'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { usePathname } from 'next/navigation'
+
 import Link from 'next/link'
 import './style/style.css'
+
 
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
@@ -16,21 +19,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+const pathname = usePathname()
+
+  
 
   return (
     <html lang="en">
       <body>
         <>
-        <nav>
-          <ul className='navbar'>
-            <li>
-              <Link href={'/'}>LOGIN</Link>
-              </li>
-            <li>
-              <Link href={'/signup'}>SIGN UP</Link>
-              </li>
-          </ul>
-        </nav>
+        {pathname!=='/'?
+    <ul className='navbar'>
+      <li>
+        <Link href={'/login'}>LOGIN</Link>
+      </li>
+      <li>
+        <Link href={'/signup'}>SIGN UP</Link>
+      </li>
+    </ul>:<ul className='navbar'>
+      <li style={{color:'white'}}>
+       HOME
+      </li>
+      <button id='btn'>LOGOUT</button>
+    </ul>
+     
+}
         {children}
         </>
         </body>

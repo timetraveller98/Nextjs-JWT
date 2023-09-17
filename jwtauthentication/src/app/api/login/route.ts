@@ -2,7 +2,6 @@ import { jwtModel } from "@/app/lib/schemaModel/model";
 import Connect from "@/app/lib/db";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import crypto from 'crypto';
 
 
 //LOGIN POST API
@@ -20,13 +19,13 @@ export async function POST(req:Request) {
       return NextResponse.json({ message: "Invalind Credentials",success:false }, { status: 409 })
     }
 
-    const secretKey = crypto.randomUUID();  //Create a Secret Key for JWT
+    const jwtKey:any = process.env.JWT_SECRET;;  //Create a Secret Key for JWT
     const secret = isUserPresent.password;  // Get Password
-    const jwtToken = jwt.sign({ secret, email }, secretKey, { expiresIn: "1h" });  //Generate JWT Token
+    const jwtToken = jwt.sign({ secret, email }, jwtKey, { expiresIn: "1h" });  //Generate JWT Token
     const response = NextResponse.json({ message: "User Successfully Login",token:jwtToken,success:true }, { status: 200 });
-    // response.cookies.set("token", token,{
-    //   httpOnly:true
-    // })   //Save Token in Cookies
+    response.cookies.set("token", jwtToken,{
+      httpOnly:true
+    })   //Save Token in Cookies
     return response
   } catch (err) {
     return NextResponse.json({ message: err, success:false }, { status: 500 })

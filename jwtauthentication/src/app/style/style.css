@@ -79,6 +79,14 @@ table{
     margin: 17px 35px 0 0;
   }
 
+  /* Button css */
+  #btn{
+    display: inline-block;
+    float: right;
+    margin-right: 50px;
+    margin-top: 15px;
+  }
+
 
 
 
