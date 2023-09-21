@@ -10,7 +10,7 @@ export async function POST(req:Request) {
     const payload = await req.json();
     const { email, password } = payload;
     if (!email && !password) {     //For check email and password is preesent in input box
-      return NextResponse.json({ message: "Invalid User" }, { status: 400 })
+      return NextResponse.json({ message: "Invalid User",success:false }, { status: 400 })
     }
     Connect();  //Add Database Connenction
     try {

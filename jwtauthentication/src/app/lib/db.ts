@@ -4,7 +4,6 @@ const Url = "mongodb+srv://school:student123@cluster0.64833pk.mongodb.net/jwt?re
 const Connect = async()=>{
     try{
         await mongoose.connect(Url)
-        console.log("Database Connected")
     }catch(err){
         console.log(err)
     }

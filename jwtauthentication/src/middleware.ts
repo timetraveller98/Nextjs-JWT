@@ -1,4 +1,4 @@
-import { verify } from 'jsonwebtoken';
+
 import { NextResponse } from 'next/server';
 
 const jwtKey: any = process.env.JWT_SECRET;

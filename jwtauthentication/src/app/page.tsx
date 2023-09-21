@@ -1,8 +1,6 @@
 'use client'
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-//import { cookies } from 'next/headers'
-
 
 const Welcome = ()=>{
    // const cookieStore = cookies();
@@ -10,7 +8,7 @@ const Welcome = ()=>{
     useEffect(()=>{
         axios.get('https://jsonplaceholder.typicode.com/users'
         ).then((res:any)=>setProduct(res.data)).catch((err:any)=>console.log(err))
-    },[])
+    },[product])
 return(
     <>
     <h1 style={{textAlign:'center',margin:'10px'}}>Welcome Sir !</h1>
